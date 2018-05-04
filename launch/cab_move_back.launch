@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+
+<launch>
+	<node name="CAB" pkg="motions" type="motions" output="screen" required="true">
+		<rosparam param="toolLink"> "contact_point" </rosparam>
+		<rosparam param="freq"> 100.0 </rosparam>
+		<rosparam param="controlMode"> "toolLocVel" </rosparam>
+		<rosparam param="virtualScale"> 1.0 </rosparam>
+		<!-- toolVel & toolLocVel -->
+		<rosparam param="toolVel"> [0.0, 0.0, 0.01, 0.0, 0.0, 0.0] </rosparam>
+		<rosparam param="DT"> 2 </rosparam>
+	</node>
+</launch>

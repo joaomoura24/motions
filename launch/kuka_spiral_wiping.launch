@@ -1,0 +1,38 @@
+<?xml version="1.0"?> 
+
+<launch>
+	<!-- Force sensor driver -->
+	<arg name="ip_address" default="192.168.0.222" />
+	<node name="netft_node" pkg="netft_rdt_driver" type="netft_node" args="$(arg ip_address) --frame_id force_torque_sensor" output="screen">
+	</node>
+	<param name="robot_description" textfile="$(find hardware)/urdf/kuka.urdf" />
+     <node pkg="rosbag" type="record" name="rosbag_record"
+        args="-O bag_name /joint_states /data/pose /data/force"/>
+	<node name="KUKA" pkg="motions" type="motions" output="screen" required="true">
+		<rosparam param="toolLink"> "contact_point" </rosparam>
+		<rosparam param="freq"> 100.0 </rosparam>
+		<rosparam param="controlMode"> "sweep" </rosparam>
+		<!-- contact sweep -->
+		<rosparam param="forceGoal"> [0.0, 0.0, -10.0, 0.0, 0.0, 0.0] </rosparam>
+		<rosparam param="fMax"> [40.0, 40.0, 40.0, 2.0, 2.0, 2.0] </rosparam>
+		<rosparam param="alpha"> 0.8 </rosparam>
+		<rosparam param="forceLink"> "force_torque_sensor" </rosparam>
+		<!-- sweep -->
+		<rosparam param="Fsweep"> 10.0 </rosparam>
+		<rosparam param="velZ"> 0.002 </rosparam>
+		<rosparam param="Ksweep"> [0.0, 0.0, 0.5, 0.5, 0.5, 0.0] </rosparam>
+		<rosparam param="dKsweep"> [0.0, 0.0, 0.0, 0.0, 0.0, 0.0] </rosparam>
+		<rosparam param="vMaxSweep"> [0.01, 0.01, 0.01, 0.1, 0.1, 0.1] </rosparam>
+		<rosparam param="radius"> 0.1 </rosparam>
+		<rosparam param="Nturns"> 3.75 </rosparam>
+		<rosparam param="phase"> 0.0 </rosparam>
+		<rosparam param="axis1"> [1.0, 0.0, 0.0] </rosparam>
+		<rosparam param="axis2"> [0.0, 1.0, 0.0] </rosparam>
+		<rosparam param="KP"> 1.0 </rosparam>
+		<rosparam param="KD"> 100.0 </rosparam>
+		<rosparam param="Cv"> 0.01 </rosparam>
+		<!-- toolVel & toolLocVel & contact & sweep -->
+		<rosparam param="invKinWeights"> [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] </rosparam>
+	</node>
+	<node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub__" />
+</launch>

@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+
+<launch>
+	<!-- Force sensor driver -->
+	<param name="robot_description" textfile="$(find hardware)/urdf/kuka.urdf" />
+	<node name="KUKA" pkg="motions" type="motions" output="screen" required="true">
+		<rosparam param="toolLink"> "contact_point" </rosparam>
+		<rosparam param="freq"> 100.0 </rosparam>
+		<rosparam param="controlMode"> "toolVel" </rosparam>
+		<!-- toolVel & toolLocVel -->
+		<rosparam param="toolVel"> [0.0, 0.0, 0.01, 0.0, 0.0, 0.0] </rosparam>
+		<rosparam param="DT"> 1 </rosparam>
+		<!-- toolVel & toolLocVel & contact & sweep -->
+		<rosparam param="invKinWeights"> [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0] </rosparam>
+	</node>
+	<node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub__" />
+</launch>

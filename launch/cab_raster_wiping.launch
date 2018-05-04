@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+
+<launch>
+	<arg name="namespace" default="/"/>
+	<arg name="sens_params_file" default="hex-50-re-400n.yaml" />
+	<group ns="$(arg namespace)">
+		<rosparam file="$(find optoforce_sensor)/cfg/$(arg sens_params_file)" command="load"/>
+		<node name="optoforce_node" pkg="optoforce_sensor" type="optoforce_sensor_node"/>
+	</group>
+     <node pkg="rosbag" type="record" name="rosbag_record"
+       args="-O bag_name /joint_states /data/pose /data/force"/>
+	<node name="CAB" pkg="motions" type="motions" output="screen" required="true">
+		<rosparam param="toolLink"> "contact_point" </rosparam>
+		<rosparam param="freq"> 100.0 </rosparam>
+		<rosparam param="controlMode"> "sweep" </rosparam>
+		<rosparam param="virtualScale"> 1.0 </rosparam>
+		<!-- contact sweep -->
+		<rosparam param="forceGoal"> [0.0, 0.0,-4.0, 0.0, 0.0, 0.0] </rosparam>
+		<rosparam param="fMax"> [3.0, 3.0, 6.0, 0.5, 0.3, 0.3] </rosparam>
+		<rosparam param="alpha"> 0.8 </rosparam>
+		<rosparam param="forceLink"> "force_torque_sensor" </rosparam>
+		<!-- sweep -->
+		<rosparam param="Fsweep"> 2.0 </rosparam>
+		<rosparam param="velZ"> 0.02 </rosparam>
+		<rosparam param="Ksweep"> [3.0, 3.0, 0.1, 2.0, 0.2, 0.0] </rosparam>
+		<rosparam param="dKsweep"> [3.0, 3.0, 0.1, 2.0, 0.2, 0.0] </rosparam>
+		<rosparam param="vMaxSweep"> [1.0, 1.0, 0.005, 0.5, 0.07, 0.0] </rosparam>
+		<rosparam param="radius"> 0.1</rosparam>
+		<rosparam param="Nturns"> 7 </rosparam>
+		<rosparam param="phase"> 0.2 </rosparam> 
+		<rosparam param="axis1"> [0.0, 0.0, -1.0] </rosparam>
+		<rosparam param="axis2"> [-1.0, 0.0, 0.0] </rosparam>
+		<rosparam param="KP"> 50.0 </rosparam>
+		<rosparam param="KD"> 1.0 </rosparam>
+		<rosparam param="Cv"> 0.025 </rosparam>
+		<!-- toolVel & toolLocVel & contact & sweep -->
+		<rosparam param="invKinWeights"> [1.0, 1.0, 1.0, 1.0, 1.0, 1.0] </rosparam>
+	</node>
+</launch>

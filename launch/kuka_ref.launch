@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+	<param name="robot_description" textfile="$(find hardware)/urdf/kuka.urdf" />
+	<node name="KUKA" pkg="motions" type="motions" output="screen" required="true">
+		<rosparam param="toolLink"> "contact_point" </rosparam>
+		<rosparam param="freq"> 100.0 </rosparam>
+		<!-- Control mode -->
+		<rosparam param="controlMode"> "jointPos" </rosparam>
+		<!-- jointPos -->
+		<rosparam param="jointPos"> [0.0, -0.7, 0.0, 1.0, 0.0, -1.4, 0.0] </rosparam>
+	</node>
+	<node pkg="robot_state_publisher" type="robot_state_publisher" name="rob_st_pub__" />
+</launch>

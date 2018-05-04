@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+
+<launch>
+	<node name="CAB" pkg="motions" type="motions" output="screen" required="true">
+		<rosparam param="toolLink"> "contact_point" </rosparam>
+		<rosparam param="freq"> 100.0 </rosparam>
+		<rosparam param="controlMode"> "jointPos" </rosparam>
+		<!-- jointPos -->
+		<rosparam param="virtualScale"> 1.0 </rosparam>
+		<rosparam param="jointPos"> [0.45, 0.00, 0.00, 0.0, -1.57, 0.0] </rosparam>
+		<rosparam param="Kjoints"> [1.0, 1.0, 1.0, 1.0, 1.0, 0.0] </rosparam>
+		<rosparam param="dqMax"> [0.02, 0.02, 0.02, 4.0, 4.0, 0.0] </rosparam>
+	</node>
+</launch>
