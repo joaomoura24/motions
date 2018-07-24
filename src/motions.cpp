@@ -200,10 +200,23 @@ Motions::~Motions()
 
 void Motions::setJointPos_(const Eigen::Matrix<double, Eigen::Dynamic, 1> &q)
 {
+<<<<<<< HEAD
 	// Variable for computing error Dq
 	Eigen::Matrix<double, Eigen::Dynamic, 1> Dq; Dq.resize(q.size()); Dq.setZero();
 	Dq = robot_.jointValues - q;
 	if(Dq.norm() < 0.001) ros::shutdown();
+=======
+    static int time2dye = 0;
+    if(time2dye==10) ros::shutdown();
+	// Variable for computing error Dq
+	Eigen::Matrix<double, Eigen::Dynamic, 1> Dq; Dq.resize(q.size()); Dq.setZero();
+	Dq = robot_.jointValues - q;
+	if(Dq.norm() < 0.1){
+        Dq.setZero();
+        robot_.setJointVel(Dq);
+        time2dye++;
+    }
+>>>>>>> Fake commit
 	else robot_.setJointPos(q);
 }
 
@@ -247,14 +260,32 @@ void Motions::setToolVel_(const Eigen::Matrix<double, 6, 1> &v, const ros::Time&
 
 void Motions::setToolLocVel_(const Eigen::Matrix<double, 6, 1> &v, const ros::Time& finalT)
 {
+<<<<<<< HEAD
 	if(robot_.gotRobotState){
 		if(ros::Time::now() > finalT) ros::shutdown();
+=======
+    static int time2dye = 0;
+    if(time2dye==10) ros::shutdown();
+	if(robot_.gotRobotState){
+        Eigen::Matrix<double, Eigen::Dynamic, 1> dq;
+        std::cout << ros:: Time::now() << " ! " << finalT << '\n';
+		if(ros::Time::now() > finalT){
+            dq.setZero();
+			// set joint velocities
+			robot_.setJointVel(dq);
+            // set shuddown 
+            time2dye++;
+        }
+>>>>>>> Fake commit
 		else{
 			// get psedo inverse Jacobian
 			Eigen::Matrix<double, Eigen::Dynamic, 6> jacobianInv;
 			robot_.kin.getLocJacInv(jacobianInv, robot_.jointValues, weights_);
 			// get joint velocities
+<<<<<<< HEAD
 			Eigen::Matrix<double, Eigen::Dynamic, 1> dq;
+=======
+>>>>>>> Fake commit
 			dq = jacobianInv*v;
 			// set joint velocities
 			robot_.setJointVel(dq);
@@ -289,9 +320,18 @@ void Motions::keepContact_()
 
 void Motions::sweeping_()
 {
+<<<<<<< HEAD
 	if(fsensor_.gotForceSensing && robot_.gotRobotState){
 		static bool firstTime = true;
 		Eigen::Matrix<double, 6, 1> vel;
+=======
+    static int time2dye = 0;
+    if(time2dye==10) ros::shutdown();
+	if(fsensor_.gotForceSensing && robot_.gotRobotState){
+		static bool firstTime = true;
+		Eigen::Matrix<double, 6, 1> vel;
+        std::cout << fsensor_.force.transpose() << "  - " << (fsensor_.force.cwiseAbs()).maxCoeff() << '\n';
+>>>>>>> Fake commit
 		if((fsensor_.force.cwiseAbs()).maxCoeff() < Fsweep_) vel << 0.0, 0.0, velZ_, 0.0, 0.0, 0.0; // if there is no contact move
 		else{
 			// Compute velocity to minimize difference from force goal and minimize derivative term
@@ -328,6 +368,10 @@ void Motions::sweeping_()
 			if(firstTime){
 				proj_.projVelFirstTime(pos);
 				firstTime = false;
+<<<<<<< HEAD
+=======
+                std::cout << "-------------- Contact -----------\n";
+>>>>>>> Fake commit
 			}
 			else{
 				// get end-effector velocity
@@ -338,7 +382,18 @@ void Motions::sweeping_()
 			// Saturate output to maximum velocity
 			for(int idx=0; idx<vel.size(); idx++) vel(idx) = VAL_SAT(vel(idx), -vMaxSweep_(idx), vMaxSweep_(idx));
 		}
+<<<<<<< HEAD
 		setToolLocVel_(vel, ros::Time::now() + ros::Duration(10));
+=======
+        std::cout << proj_.t_i << " : " << proj_.t_end << '\n';
+        if(proj_.t_i>proj_.t_end){
+            vel.setZero();
+            setToolLocVel_(vel, ros::Time::now() + ros::Duration(0.1));
+            time2dye++;
+            std::cout << "Should dye soon\n";
+        }
+        else setToolLocVel_(vel, ros::Time::now() + ros::Duration(10));
+>>>>>>> Fake commit
 	}
 }
 

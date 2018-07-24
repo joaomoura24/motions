@@ -7,7 +7,17 @@
 		<rosparam param="controlMode"> "toolLocVel" </rosparam>
 		<rosparam param="virtualScale"> 1.0 </rosparam>
 		<!-- toolVel & toolLocVel -->
+<<<<<<< HEAD
 		<rosparam param="toolVel"> [0.0, 0.0, 0.01, 0.0, 0.0, 0.0] </rosparam>
 		<rosparam param="DT"> 2 </rosparam>
+=======
+<<<<<<< HEAD
+		<rosparam param="toolVel"> [0.0, 0.0, 0.01, 0.0, 0.0, 0.0] </rosparam>
+		<rosparam param="DT"> 2 </rosparam>
+=======
+		<rosparam param="toolVel"> [0.0, 0.0, -0.01, 0.0, 0.0, 0.0] </rosparam>
+		<rosparam param="DT"> 1 </rosparam>
+>>>>>>> Fake commit
+>>>>>>> Add termination of the nodes
 	</node>
 </launch>

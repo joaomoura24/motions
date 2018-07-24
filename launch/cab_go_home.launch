@@ -9,6 +9,14 @@
 		<rosparam param="virtualScale"> 1.0 </rosparam>
 		<rosparam param="jointPos"> [0.45, 0.00, 0.00, 0.0, -1.57, 0.0] </rosparam>
 		<rosparam param="Kjoints"> [1.0, 1.0, 1.0, 1.0, 1.0, 0.0] </rosparam>
+<<<<<<< HEAD
 		<rosparam param="dqMax"> [0.02, 0.02, 0.02, 4.0, 4.0, 0.0] </rosparam>
+=======
+<<<<<<< HEAD
+		<rosparam param="dqMax"> [0.02, 0.02, 0.02, 4.0, 4.0, 0.0] </rosparam>
+=======
+		<rosparam param="dqMax"> [0.025, 0.03, 0.03, 4.0, 4.0, 0.0] </rosparam>
+>>>>>>> Fake commit
+>>>>>>> Add termination of the nodes
 	</node>
 </launch>

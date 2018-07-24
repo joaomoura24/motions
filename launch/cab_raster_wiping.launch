@@ -25,9 +25,21 @@
 		<rosparam param="Ksweep"> [3.0, 3.0, 0.1, 2.0, 0.2, 0.0] </rosparam>
 		<rosparam param="dKsweep"> [3.0, 3.0, 0.1, 2.0, 0.2, 0.0] </rosparam>
 		<rosparam param="vMaxSweep"> [1.0, 1.0, 0.005, 0.5, 0.07, 0.0] </rosparam>
+<<<<<<< HEAD
 		<rosparam param="radius"> 0.1</rosparam>
 		<rosparam param="Nturns"> 7 </rosparam>
 		<rosparam param="phase"> 0.2 </rosparam> 
+=======
+<<<<<<< HEAD
+		<rosparam param="radius"> 0.1</rosparam>
+		<rosparam param="Nturns"> 7 </rosparam>
+		<rosparam param="phase"> 0.2 </rosparam> 
+=======
+		<rosparam param="radius"> 0.015</rosparam>
+		<rosparam param="Nturns"> 16 </rosparam>
+		<rosparam param="phase"> 0.09 </rosparam> 
+>>>>>>> Fake commit
+>>>>>>> Add termination of the nodes
 		<rosparam param="axis1"> [0.0, 0.0, -1.0] </rosparam>
 		<rosparam param="axis2"> [-1.0, 0.0, 0.0] </rosparam>
 		<rosparam param="KP"> 50.0 </rosparam>

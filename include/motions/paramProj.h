@@ -88,7 +88,11 @@ void ParamProj<T>::Init(const T &traj, const Eigen::Matrix<double, 3, 1> &axis1,
 	// get inverse projection matrix
 	invproj_ << axis1, axis2;
 	// Initialize parameter
+<<<<<<< HEAD
 	t_ = 0.001;
+=======
+	t_ = 0.01;
+>>>>>>> Fake commit
 	// Check if axis span a 2 dimensional space
 	Eigen::Matrix<double, 2, 2> provMat = (invproj_.transpose())*invproj_;
 	Eigen::FullPivLU<Eigen::Matrix<double,2,2>> lu_decomp(provMat);
@@ -114,7 +118,11 @@ Eigen::Matrix<double, 2, 1> ParamProj<T>::projVel(const Eigen::Matrix<double, 3,
 	int count = 0; // number of iteration for gradient descent
 	double DC = 1.0; // gradiant of the function to be minimized
 	// Gradient descente rate
+<<<<<<< HEAD
 	double alpha = 0.2;
+=======
+	double alpha = 0.3;
+>>>>>>> Fake commit
 	Eigen::Matrix<double, 2, 1> xProj = proj_*x - xProjRef_; // project global end-effector position and subtract reference point (origin of parametric trajectory)
 	// Loop to find closest point in trajectory to real projected position
 	Eigen::Matrix<double, 2, 1> xTraj, dxTraj, errorProj;
