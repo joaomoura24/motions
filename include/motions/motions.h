@@ -43,7 +43,7 @@
 // Raster or Spiral
 #define PATH_CLASS Raster
 // Cab or Kuka
-#define ROBOT Cab
+#define ROBOT Kuka
 // OptoForce or Gamma
 #define FORCESENSOR OptoForce
 
